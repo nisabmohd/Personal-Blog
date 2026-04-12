@@ -1,31 +1,29 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { cache, PropsWithChildren } from "react";
-import { getAllBlogs, getBlogFromSlug } from "@/lib/markdown";
-
-const getBlogFromSlugCache = cache(getBlogFromSlug);
+import { PropsWithChildren } from "react";
+import { docs, Fmt, getBlogSlugFromHref } from "@/ariadocs";
+import { get } from "http";
 
 export default async function BlogPage(props: {
   params: Promise<{ slug: string }>;
 }) {
   const params = await props.params;
-
-  const { slug } = params;
-
-  const res = await getBlogFromSlugCache(slug);
-  if (!res) notFound();
-  const { content } = res;
-  return (
-    <>
-      <div className="flex flex-col gap-4 pt-4">
-        <h2 className="text heading">{res.frontmatter.title}</h2>
-        <p className="sub-text -mt-1">
-          {new Date(res.frontmatter.published).toDateString()}
-        </p>
-      </div>
-      <Typography>{content}</Typography>
-    </>
-  );
+  try {
+    const { MDX, frontmatter } = await docs.parse({ slug: params.slug });
+    return (
+      <>
+        <div className="flex flex-col gap-4 pt-4">
+          <h2 className="text heading">{frontmatter.title}</h2>
+          <p className="sub-text -mt-1">
+            {new Date(frontmatter.published as string).toDateString()}
+          </p>
+        </div>
+        <Typography>{MDX}</Typography>
+      </>
+    );
+  } catch (e) {
+    notFound();
+  }
 }
 
 function Typography({ children }: PropsWithChildren) {
@@ -37,44 +35,45 @@ function Typography({ children }: PropsWithChildren) {
 }
 
 export async function generateStaticParams() {
-  const blogs = await getAllBlogs();
-  return blogs.map((blog) => ({
-    slug: blog.frontmatter.slug,
-  }));
+  const paths = await docs.getPagePaths();
+  return paths.map((it) => ({ slug: getBlogSlugFromHref(it) }));
 }
 
 export async function generateMetadata(props: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const params = await props.params;
-
-  const { slug } = params;
-
-  const blog = await getBlogFromSlugCache(slug);
-  if (!blog) return {};
-  const ogImage = `https://nisabmohd.vercel.app/og?title=${encodeURIComponent(
-    blog.frontmatter.title
-  )}`;
-  return {
-    title: blog.frontmatter.title,
-    description: blog.frontmatter.description,
-    openGraph: {
-      title: blog.frontmatter.title,
-      description: blog.frontmatter.description,
-      type: "article",
-      publishedTime: new Date(blog.frontmatter.published).toDateString(),
-      url: `https://nisabmohd.vercel.app/${slug}`,
-      images: [
-        {
-          url: ogImage,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: blog.frontmatter.title,
-      description: blog.frontmatter.description,
-      images: [ogImage],
-    },
-  };
+  const slug = params.slug;
+  try {
+    const fmt = (await docs.getFrontmatter({ slug })) as Fmt;
+    const ogImage = `https://nisabmohd.vercel.app/og?title=${encodeURIComponent(
+      fmt.title as string,
+    )}`;
+    return {
+      title: fmt.title,
+      description: fmt.description,
+      openGraph: {
+        title: fmt.title,
+        description: fmt.description,
+        type: "article",
+        publishedTime: new Date(fmt.published).toDateString(),
+        url: `https://nisabmohd.vercel.app/${slug}`,
+        images: [
+          {
+            url: ogImage,
+          },
+        ],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: fmt.title,
+        description: fmt.description,
+        images: [ogImage],
+      },
+    };
+  } catch (e) {
+    return {
+      title: "Blog Not Found",
+    };
+  }
 }

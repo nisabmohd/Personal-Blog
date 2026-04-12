@@ -1,12 +1,19 @@
 import type { MetadataRoute } from "next";
-import { getAllBlogs } from "@/lib/markdown";
+import { docs, Fmt } from "@/ariadocs";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const blogs = await getAllBlogs();
+  const paths = await docs.getPagePaths();
+  const blogsFmts = await Promise.all(
+    paths.map(async (it) => {
+      const slug = it.split("/").filter(Boolean).join("");
+      const fmt = (await docs.getFrontmatter({ slug })) as Fmt;
+      return fmt;
+    }),
+  );
 
-  const blogSitemaps: MetadataRoute.Sitemap = blogs.map((blog) => ({
-    url: `https://nisabmohd.vercel.app/${blog.frontmatter.slug}`,
-    lastModified: new Date(blog.frontmatter.published),
+  const blogSitemaps: MetadataRoute.Sitemap = blogsFmts.map((fmt) => ({
+    url: `https://nisabmohd.vercel.app/${fmt.slug}`,
+    lastModified: new Date(fmt.published),
     changeFrequency: "monthly",
     priority: 0.8,
   }));
