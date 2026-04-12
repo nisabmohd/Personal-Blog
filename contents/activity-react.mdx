@@ -2,7 +2,6 @@
 title: React Activity Component Explained
 description: A React component that hides UI without losing state, but still cleans up effects like unmount.
 published: 1750608715358
-slug: activity-react
 ---
 
 This new React component lets you hide part of the UI while keeping its state in the background, without mounting effects.  
@@ -46,33 +45,28 @@ export default function App() {
         <button onClick={() => setVideo(1)}>Video 1</button>
         <button onClick={() => setVideo(2)}>Video 2</button>
       </div>
-      {video === 1 && (
-        <VideoPlayer
-          key={1}
-          src="https://somevideo1-url.mp4"
-        />
-      )}
-      {video === 2 && (
-        <VideoPlayer
-          key={2}
-          src="https://somevideo2-url.mp4"
-        />
-      )}
+      {video === 1 && <VideoPlayer key={1} src="https://somevideo1-url.mp4" />}
+      {video === 2 && <VideoPlayer key={2} src="https://somevideo2-url.mp4" />}
     </>
   );
 }
 ```
 
-In the above code, when the video switches, the `VideoPlayer` component for that video unmounts, removing all its state from memory. So when it's switched back, it loads from the start, which is not ideal.  
+In the above code, when the video switches, the `VideoPlayer` component for that video unmounts, removing all its state from memory. So when it's switched back, it loads from the start, which is not ideal.
 
 To fix this, we could render both components and simply hide them from the UI using styles like `display: none` and `display: block`. This would preserve their state, but both videos would play at the same time in the background, which doesn't solve the issue either.
 
-The Activity component fixes this issue. Conceptually, you can think of it as mounting and unmounting, but saving the React or DOM state for later use.  
+The Activity component fixes this issue. Conceptually, you can think of it as mounting and unmounting, but saving the React or DOM state for later use.
 
 Here is the code using the Activity component:
 
 ```jsx
-import { useState, useRef, useEffect, unstable_Activity as Activity } from 'react';
+import {
+  useState,
+  useRef,
+  useEffect,
+  unstable_Activity as Activity,
+} from "react";
 
 function VideoPlayer({ src }) {
   const ref = useRef(null);
@@ -83,28 +77,22 @@ function VideoPlayer({ src }) {
     return () => videoRef.pause();
   }, []);
 
-  return <video ref={ref} src={src} muted loop playsInline/>;
+  return <video ref={ref} src={src} muted loop playsInline />;
 }
 
 export default function App() {
   const [video, setVideo] = useState(1);
   return (
     <>
-       <div>
+      <div>
         <button onClick={() => setVideo(1)}>Video 1</button>
         <button onClick={() => setVideo(2)}>Video 2</button>
       </div>
-      <Activity mode={video === 1 ? 'visible' : 'hidden'}>
-        <VideoPlayer
-          key={1}
-          src="https://somevideo1-url.mp4"
-        />
+      <Activity mode={video === 1 ? "visible" : "hidden"}>
+        <VideoPlayer key={1} src="https://somevideo1-url.mp4" />
       </Activity>
-      <Activity mode={video === 2 ? 'visible' : 'hidden'}>
-        <VideoPlayer
-          key={2}
-          src="https://somevideo2-url.mp4"
-        />
+      <Activity mode={video === 2 ? "visible" : "hidden"}>
+        <VideoPlayer key={2} src="https://somevideo2-url.mp4" />
       </Activity>
     </>
   );

@@ -2,7 +2,6 @@
 title: Helpful TypeScript Utility Types.
 description: This blog explores TypeScript's global utility types, aiding common type transformations.
 published: 1698601281927
-slug: util-types
 ---
 
 TypeScript provides several utility types to facilitate common type transformations. These utilities are available globally. This utilty types helps and makes our lifes easier by avoiding bunch of `any` type in our code. lets undertand this utility types by few real case scenarios.
@@ -23,9 +22,7 @@ import { helper } from "npm-package";
 type FnReturns = ReturnType<typeof helper>;
 ```
 
-
 <Note>This only takes function as type to produce return type.</Note>
-
 
 #### Example 2 : Infer a function parameters type.
 
@@ -37,10 +34,7 @@ function JSONStringify(...args: Parameters<typeof JSON.stringify>) {
 }
 ```
 
-<Note>
-  This only takes function as type to produce parameters type.
-</Note>
-
+<Note>This only takes function as type to produce parameters type.</Note>
 
 #### Example 3 : Remove or omit few properties in a type.
 
@@ -72,7 +66,6 @@ type PageProps = Omit<MDXFrontmatter, "githubUrl" | "tags">;
 
 <Note>This only works with object types.</Note>
 
-
 #### Example 4 : Pick only few properties from a type defined
 
 Its very similar to `Omit` type. If you have a type already defined and you want to make a type simlar but only pick few properties of the type then we can use `Pick` utility type.
@@ -95,7 +88,6 @@ type CustomType = Pick<Something, "posts">;
 
 <Note>This only works with object types.</Note>
 
-
 #### Example 5 : Make all property of a type optional.
 
 If you have a type and you want to derive a type from that by keeping all properties as optional then instead of creating new type use the `Partial` helper type.
@@ -117,7 +109,6 @@ type CustomType = Partial<Pagination>;
 ```
 
 <Note>This only works with object types.</Note>
-
 
 #### Example 6 : Make all property of a type required.
 
@@ -142,7 +133,6 @@ type RequiredTypeUser = Required<User>;
 ```
 
 <Note>This only works with object types.</Note>
-
 
 #### Example 7 : Key value pair type.
 

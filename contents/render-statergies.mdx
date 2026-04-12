@@ -1,8 +1,7 @@
 ---
 title: WTF Is CSR, SSR, SSG, ISR, PPR & Server Components?
-description: "Let’s understand web rendering strategies: CSR, SSR, SSG, ISR, PPR & Server Components."
+description: "Let's understand web rendering strategies: CSR, SSR, SSG, ISR, PPR & Server Components."
 published: 1764098761679
-slug: render-strategies
 ---
 
 CSR, SSR, ISR, Server Components, PPR, SSG… what are these terms and why do they matter so much in modern frontend development? Let’s go through each one and clear things up. I know it feels scary how fast the web is moving, but once you understand these concepts, it actually becomes pretty easy. You’ll also know exactly what to use and when.
@@ -31,7 +30,6 @@ Now let’s look at the network graph of SSR.
 
 ![csr.png](/images/ssr.png)
 
-
 ### SSG (Static Site Generation)
 
 SSG is basically SSR but without rendering on every request. Instead of generating the page when a user hits the server, we generate all the possible pages at build time and store them in a CDN. This makes page loads extremely fast.
@@ -43,7 +41,6 @@ If the page has interactive parts, then the required JavaScript chunks will stil
 Now let’s look at the network graph of SSG.
 
 ![csr.png](/images/ssg.png)
-
 
 ### ISR (Incremental Static Regeneration)
 
@@ -68,7 +65,6 @@ Server components are basically SSR on steroids because they let you render UI o
 
 ![csr.png](/images/rsc.png)
 
-
 ### PPR (Partial Pre Rendering)
 
 PPR is a recent feature from React where parts of the UI can be cached at build time. It’s powerful because the non-interactive parts of the UI can be rendered on the server and cached, while the dynamic parts are skipped during build. Frameworks like Next.js already support this with the `cacheComponents` flag, where you mark the static part of the UI to be cached and wrap the dynamic part inside a Suspense boundary.
@@ -78,6 +74,5 @@ At render time, the fallback of the Suspense boundary is placed in the slots whe
 A perfect example is Amazon. The images, product description and layout stay the same, but the price and reviews change frequently. PPR lets you cache the stable parts and stream only the updated ones.
 
 ![csr.png](/images/ppr.png)
-
 
 > And yeah, this is the same stuff some backend devs look at and still say “frontend is easy.”

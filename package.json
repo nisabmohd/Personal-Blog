@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "generate-meta": "node scripts/generate-meta.js"
   },
   "dependencies": {
     "@ariadocs/react": "^2.1.0",

@@ -2,7 +2,6 @@
 title: Implement Dark Mode in TanStack Start
 description: Easily add dark mode to your TanStack Start app with a simple toggle and persistent theme preference across routes.
 published: 1743924931166
-slug: tanstack-dark
 ---
 
 Recently, I started rewriting my project using the **TanStack Start** framework. One of the features I wanted to implement early on was a light/dark mode toggle. My initial approach used `localStorage` to store the user's preference, but I quickly ran into a common issue — a flash of the incorrect theme on the initial page load.
@@ -15,8 +14,9 @@ Let’s see how the implementation goes.
 
 ### Step 1 — Creating `getThemeServerFn` and `setThemeServerFn`
 
-I started by creating two `serverFn` utilities:  
-- `getThemeServerFn` retrieves the current theme from the cookie (if present) or falls back to a default.  
+I started by creating two `serverFn` utilities:
+
+- `getThemeServerFn` retrieves the current theme from the cookie (if present) or falls back to a default.
 - `setThemeServerFn` updates the cookie with the new theme value.
 
 This ensures that the theme is handled on the **server**, preventing flickering on the initial load and keeping the experience consistent across routes and refreshes.

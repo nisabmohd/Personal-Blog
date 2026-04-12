@@ -6,8 +6,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const blogsFmts = await Promise.all(
     paths.map(async (it) => {
       const slug = it.split("/").filter(Boolean).join("");
-      const fmt = (await docs.getFrontmatter({ slug })) as Fmt;
-      return fmt;
+      const fmt = await docs.getFrontmatter<Fmt>({ slug });
+      return { ...fmt, slug };
     }),
   );
 

@@ -26,7 +26,6 @@ export type Fmt = {
   title: string;
   description: string;
   published: number;
-  slug: string;
 };
 
 export function getBlogSlugFromHref(href: string) {

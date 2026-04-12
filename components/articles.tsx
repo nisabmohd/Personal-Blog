@@ -7,7 +7,7 @@ export default async function Articles() {
   const fmts = await Promise.all(
     navItems.map(async (item) => {
       const slug = item.href.split("/").filter(Boolean)[0];
-      return (await docs.getFrontmatter({ slug })) as Fmt;
+      return await docs.getFrontmatter<Fmt>({ slug });
     }),
   );
 

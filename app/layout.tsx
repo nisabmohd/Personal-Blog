@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Sanchez, IBM_Plex_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
-import "./globals.css";
 import Link from "next/link";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Nisab Mohd",
@@ -14,14 +14,14 @@ export const metadata: Metadata = {
   },
 };
 
-const fontOne = Geist({
+const fontOne = Sanchez({
   subsets: ["latin"],
   variable: "--font-one",
   display: "swap",
   weight: "400",
 });
 
-const fontTwo = Geist_Mono({
+const fontTwo = IBM_Plex_Mono({
   subsets: ["latin"],
   variable: "--font-two",
   display: "swap",
@@ -30,20 +30,16 @@ const fontTwo = Geist_Mono({
 
 const socials = [
   {
-    name: "twitter",
-    url: "https://twitter.com/MohdNisab",
-  },
-  {
     name: "github",
     url: "https://github.com/nisabmohd",
   },
   {
-    name: "linkedin",
-    url: "https://www.linkedin.com/in/nisabmohd/",
+    name: "x",
+    url: "https://x.com/MohdNisab",
   },
   {
-    name: "bluesky",
-    url: "https://bsky.app/profile/nisabmohd.bsky.social",
+    name: "linkedin",
+    url: "https://www.linkedin.com/in/nisabmohd/",
   },
 ];
 
@@ -63,7 +59,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <main className="max-w-[700px] mx-auto px-4 text-[15.5px]">
+          <main className="max-w-[600px] mx-auto px-4 text-[15.5px]">
             <div className="py-7 min-h-[83vh]">
               <nav className="h-16">
                 <Link

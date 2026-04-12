@@ -1,8 +1,7 @@
 ---
 title: New use & useOptimistic hooks in React package
-description: React’s new stable hooks in action.
+description: React's new stable hooks in action.
 published: 1708928797210
-slug: use-useoptimistic-hooks
 ---
 
 React has added two new hooks — `use` and `useOptimistic` — now available in the stable React package.  
@@ -17,7 +16,7 @@ Unlike other hooks, `use` can be called inside loops, conditionals, or any block
 
 ```js
 const value = use(resource);
-````
+```
 
 ---
 
@@ -123,7 +122,7 @@ const [optimisticState, addOptimistic] = useOptimistic(state, updateFn);
 export default function MessagesContainer({ messages, send }) {
   const [optimisticMessages, addMessage] = useOptimistic(
     messages,
-    (state, newMessage) => [...state, newMessage]
+    (state, newMessage) => [...state, newMessage],
   );
 
   const [inputMessage, setInputMessage] = useState("");
@@ -158,7 +157,11 @@ export default function MessagesContainer({ messages, send }) {
 }
 
 function Message({ body, pending }) {
-  return <p>{body} {pending && " - sending..."}</p>;
+  return (
+    <p>
+      {body} {pending && " - sending..."}
+    </p>
+  );
 }
 ```
 
@@ -170,4 +173,3 @@ This makes interactions feel faster and smoother for users.
 
 Both `use` and `useOptimistic` are now part of stable React.
 They make data handling and UI updates more seamless — bringing a smoother bridge between server logic and the client experience.
-

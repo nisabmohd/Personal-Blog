@@ -2,7 +2,6 @@
 title: Run Node with specific env file
 description: In this blog, we'll explore using specific environment files like .env.trail or .env.test in our applications, along with scripting for management.
 published: 1697564476495
-slug: env-cmd-next
 ---
 
 In this blog, we'll discuss how to use specific environment files such as `.env.trail`, `.env.test`, `.env.prod`, etc., in your application.
@@ -15,7 +14,7 @@ For this, we can create our own environment files with suffixes for each environ
 ```bash:.env.test
 JWT_TOKEN=qwertyuiop
 LOGIN_URL_CALLBACK=test.url.com
-````
+```
 
 ```bash:.env.development
 JWT_TOKEN=abcdefghijk
@@ -44,8 +43,8 @@ Once installed, add scripts in your `package.json` to specify which environment 
 
 Now, when starting your application in a specific environment, simply run one of the defined scripts:
 
-* `npm run dev-start` → uses `.env.development`
-* `npm run test-deploy` → uses `.env.test`
+- `npm run dev-start` → uses `.env.development`
+- `npm run test-deploy` → uses `.env.test`
 
 This approach helps manage multiple **.env** files for different environments efficiently.
 You can easily extend it by adding more scripts for environments like **staging**, **pre-prod**, or **production** based on your needs.
