@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono, Space_Grotesk } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 import Link from "next/link";
@@ -14,14 +14,14 @@ export const metadata: Metadata = {
   },
 };
 
-const fontOne = Space_Grotesk({
+const fontOne = Geist({
   subsets: ["latin"],
   variable: "--font-one",
   display: "swap",
   weight: "400",
 });
 
-const fontTwo = IBM_Plex_Mono({
+const fontTwo = Geist_Mono({
   subsets: ["latin"],
   variable: "--font-two",
   display: "swap",

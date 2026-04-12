@@ -5,10 +5,10 @@ export default async function Articles() {
   const blogs = await getAllBlogs();
   return (
     <>
-      <ul className="flex flex-col gap-1.5">
+      <ul className="flex flex-col gap-2 list-disc list-inside">
         {blogs.map((blog) => (
           <li key={blog.frontmatter.slug}>
-            <Link className="link" href={`/${blog.frontmatter.slug}`}>
+            <Link className="link " href={`/${blog.frontmatter.slug}`}>
               {blog.frontmatter.title}
             </Link>
           </li>
