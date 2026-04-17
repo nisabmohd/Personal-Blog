@@ -12,7 +12,7 @@
     "title": "Setting Up tRPC with Next.js App Router"
   },
   {
-    "slug": "tanstack-start-dark",
+    "slug": "tanstack-dark",
     "title": "Implement Dark Mode in TanStack Start"
   },
   {
@@ -21,7 +21,7 @@
   },
   {
     "slug": "next-i18n",
-    "title": "Next.js 15 Internationalization Simplified"
+    "title": "Next.js Internationalization Simplified"
   },
   {
     "slug": "generic-args",
@@ -32,7 +32,7 @@
     "title": "Understanding useRef by Building It"
   },
   {
-    "slug": "react-compositions",
+    "slug": "react-adv-composition",
     "title": "React Advanced Composition Patterns"
   },
   {
@@ -40,11 +40,11 @@
     "title": "Understanding Hydration Errors in React"
   },
   {
-    "slug": "tuple-record",
+    "slug": "record-tuple",
     "title": "My Take on JavaScript's Record & Tuple Proposal."
   },
   {
-    "slug": "next-basic-auth",
+    "slug": "next-auth-simple",
     "title": "Basic auth in NextJS without library"
   },
   {
@@ -60,7 +60,7 @@
     "title": "React client & server components"
   },
   {
-    "slug": "iterables",
+    "slug": "iterables-iterator",
     "title": "Iterables & Iterators in JavaScript"
   },
   {
